@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 //singleton reccomends from Apple documentation
 final class NetworkManager {
 
     static let shared = NetworkManager()
+    private let cashe = NSCache<NSString, UIImage>()
     private let baseURL = "https://seanallen-course-backend.herokuapp.com/swiftui-fundamentals/appetizers"
     private init() {}
     func getTastyData(completed: @escaping (Result<[TastyModel], APIError>) -> Void) {
@@ -36,6 +38,28 @@ final class NetworkManager {
             } catch {
                 completed(.failure(.invalidData))
             }
+        }
+        task.resume()
+    }
+
+    func downloadImage(fromUrlString urlString: String, completed: @escaping (UIImage?)-> Void ) {
+        // check cache first
+        let cacheKey = NSString(string: urlString)
+        if let image = cashe.object(forKey: cacheKey) {
+            completed(image)
+        }
+
+        guard let url = URL(string: urlString) else {
+            completed(nil)
+            return
+        }
+        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
+            guard let data = data, let image = UIImage(data: data) else {
+                completed(nil)
+                return
+            }
+            self.cashe.setObject(image, forKey: cacheKey)
+            completed(image)
         }
         task.resume()
     }
