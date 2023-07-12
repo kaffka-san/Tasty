@@ -11,7 +11,7 @@ import SwiftUI
 struct TastyApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TastyTabView()
         }
     }
 }
