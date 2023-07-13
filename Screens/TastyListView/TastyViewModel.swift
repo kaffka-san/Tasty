@@ -25,7 +25,7 @@ class TastyViewModel: ObservableObject {
                 case .failure(let error):
                     switch error {
                     case .invalidData:
-                        alertItem = AlertContext.invalidDatd
+                        alertItem = AlertContext.invalidData
                     case .invalidURL:
                         alertItem = AlertContext.invalidURL
                     case .invalidResponse:

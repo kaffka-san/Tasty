@@ -8,10 +8,43 @@
 import SwiftUI
 
 struct AccountView: View {
+    @StateObject var accoutViewModel = AccountViewMode()
+   
     var body: some View {
         NavigationView{
-            Text("Tasty list View")
-                .navigationTitle("Account View")
+            Form {
+                Section {
+                    TextField("First Name", text: $accoutViewModel.firstName)
+                    TextField("Last Name", text: $accoutViewModel.lastName)
+                    TextField("Emaile", text: $accoutViewModel.email)
+                        .keyboardType(.emailAddress)
+                        .disableAutocorrection(true)
+                        .autocapitalization(.none)
+                    DatePicker("Birthday", selection: $accoutViewModel.birthdate, displayedComponents: .date)
+                    Button ("Save changes") {
+                        print("save")
+                        accoutViewModel.saveChanges()
+                    }
+                    .alert(item: $accoutViewModel.alertItem) { alert in
+                        Alert(title: alert.title, message: alert.messgae, dismissButton: alert.dismissButton)
+                    }
+
+                } header: {
+                    Text("Personal Info")
+                }
+                Section {
+                    Toggle("Extra napkins", isOn: $accoutViewModel.extraNapkins)
+                    Toggle("Frequent Refills", isOn: $accoutViewModel.frequentRefills)
+                }
+                header: {
+                    Text("Requests")
+                }
+                .toggleStyle(SwitchToggleStyle(tint: .brandPrimaty))
+
+
+            }
+
+            .navigationTitle("Account")
         }
     }
 }
