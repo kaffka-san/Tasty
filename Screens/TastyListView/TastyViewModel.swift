@@ -11,6 +11,9 @@ class TastyViewModel: ObservableObject {
     @Published var tastyData: [TastyModel] = []
     @Published var alertItem: AlertItem?
     @Published var isLoading: Bool = false
+
+    @Published var isShownigDetail = false
+    @Published var selectedTastyModel : TastyModel?
     func getTastyData(){
         isLoading = true
         NetworkManager.shared.getTastyData { result in
