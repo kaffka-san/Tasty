@@ -29,5 +29,29 @@ struct MockupData {
                                         calories: 14,
                                         protein: 15,
                                         carbs: 99)
-    static let tastyArray = [sampleTasty, sampleTasty, sampleTasty, sampleTasty]
+    static var tastyArray = [sampleTastyOne, sampleTastyTwo, sampleTastyThree]
+    static let sampleTastyOne = TastyModel(id: 0001,
+                                        name: "Test Name",
+                                        description: "Test Description",
+                                        price: 22.2,
+                                        imageURL: "",
+                                        calories: 14,
+                                        protein: 15,
+                                        carbs: 99)
+    static let sampleTastyTwo = TastyModel(id: 0002,
+                                        name: "Test Name",
+                                        description: "Test Description",
+                                        price: 22.2,
+                                        imageURL: "",
+                                        calories: 14,
+                                        protein: 15,
+                                        carbs: 99)
+    static let sampleTastyThree = TastyModel(id: 0003,
+                                        name: "Test Name",
+                                        description: "Test Description",
+                                        price: 22.2,
+                                        imageURL: "",
+                                        calories: 14,
+                                        protein: 15,
+                                        carbs: 99)
 }

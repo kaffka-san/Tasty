@@ -35,4 +35,11 @@ struct AlertContext{
                                        messgae: Text("Please ensure that your Email is correct"),
                                        dismissButton: .default(Text("OK")))
 
+    //MARK: - User
+    static let userSaveSuccess = AlertItem(title: Text( "Profile saved"),
+                                       messgae: Text("Your profile has been saved succefully"),
+                                       dismissButton: .default(Text("OK")))
+    static let invalidUserData = AlertItem(title: Text( "Profile error"),
+                                       messgae: Text("There was an error saving or retieving your peofile"),
+                                       dismissButton: .default(Text("OK")))
 }
