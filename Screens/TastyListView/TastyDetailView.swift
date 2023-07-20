@@ -10,6 +10,8 @@ import SwiftUI
 struct TastyDetailView: View {
     let tasty: TastyModel
     @Binding var isShowingDetail: Bool
+    @EnvironmentObject var order: Order
+
     var body: some View {
         VStack {
             TastyRemoteImage(urlString: tasty.imageURL)
@@ -32,10 +34,14 @@ struct TastyDetailView: View {
             }
             Spacer()
             Button{
-
+                order.add(tasty)
+                isShowingDetail = false
             } label: {
-                TastyButton(text: "\(tasty.price, format: .currency(code: ("USD"))) - Add to Order")  
+               // TastyButton(text: "\(tasty.price, format: .currency(code: ("USD"))) - Add to Order")
+                Text("\(tasty.price, format: .currency(code: ("USD"))) - Add to Order")
+                  
             }
+            .modifier(StandardButtonStyle())
             .padding(.bottom,30)
 
         }

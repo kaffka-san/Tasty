@@ -8,31 +8,40 @@
 import SwiftUI
 
 struct OrderView: View {
-    @State private var orderItems = MockupData.tastyArray
+   // @State private var orderItems = MockupData.tastyArray
+    @EnvironmentObject var order: Order
     var body: some View {
         NavigationView {
-            VStack{
-                List {
-                    ForEach(orderItems, id: \.id) { item in
-                        TastyListCell(tasty: item)
+            ZStack{
+                VStack{
+                    List {
+                        ForEach(order.items, id: \.id) { item in
+                            TastyListCell(tasty: item)
+                        }
+                        .onDelete(perform: deleteTasty)
+
                     }
-                    .onDelete(perform: deleteTasty)
+                    .listStyle(.plain)
+                    Button() {
 
-                }
-                .listStyle(.plain)
-                Button() {
+                    } label: {
+                        //TastyButton(text: "$\(order.price, specifier: "%.2f") - Place order")
+                        Text("$\(order.price, specifier: "%.2f") - Place order")
 
-                } label: {
-                    TastyButton(text: "$99 - Place order")
+                    }
+                    .modifier(StandardButtonStyle())
+                    .padding(25)
                 }
-                .padding(25)
-            }
                 .navigationTitle("🧾 Orders")
+                if order.items.isEmpty {
+                    EmptyState(imageName: "empty-order", message: "You have no items in your order.")
+                }
+            }
 
         }
     }
     func deleteTasty(index: IndexSet) {
-        MockupData.tastyArray.remove(atOffsets: index)
+        order.items.remove(atOffsets: index)
     }
 }
 
